@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" method="upgrade" client="site" version="6.0">
+    <name>SNC_COOKIES</name>
+    <author>Steven Naschold Computerservice</author>
+    <version>2.0.0</version>
+    <description>MOD_SNC_COOKIES_XML_DESCRIPTION</description>
+    <license>GPLv3</license>
+
+    <!-- ========================================================= -->
+    <!-- Dateien                                                   -->
+    <!-- ========================================================= -->
+    <files>
+        <filename module="mod_snc_cookies">mod_snc_cookies.php</filename>
+        <filename>helper.php</filename>
+
+        <folder>tmpl</folder>
+        <folder>assets</folder>
+
+        <filename>index.html</filename>
+    </files>
+
+    <!-- ========================================================= -->
+    <!-- Sprachdateien                                             -->
+    <!-- ========================================================= -->
+    <languages>
+        <language tag="de-DE">language/de-DE/de-DE.mod_snc_cookies.ini</language>
+        <language tag="en-GB">language/en-GB/en-GB.mod_snc_cookies.ini</language>
+    </languages>
+
+    <!-- ========================================================= -->
+    <!-- Konfiguration                                             -->
+    <!-- ========================================================= -->
+    <config>
+        <fields name="params">
+
+            <!-- ================================================= -->
+            <!-- Grundlegende Einstellungen                        -->
+            <!-- ================================================= -->
+            <fieldset name="basic" label="Grundlegende Einstellungen">
+
+                <field
+                    name="cookie_ref"
+                    type="text"
+                    default="snc_consent"
+                    label="Cookie-Name"
+                    description="Interner Name des Consent-Cookies."
+                />
+
+                <field
+                    name="cookie_lifetime"
+                    type="number"
+                    default="12"
+                    label="Lebensdauer (Tage)"
+                    description="Wie lange der Consent gespeichert wird."
+                />
+
+                <field
+                    name="cookie_position"
+                    type="list"
+                    default="bottom"
+                    label="Position"
+                    description="Position des Cookie-Banners."
+                >
+                    <option value="top">Oben</option>
+                    <option value="bottom">Unten</option>
+                </field>
+
+                <field
+                    name="cookie_opacity"
+                    type="range"
+                    default="85"
+                    min="0"
+                    max="100"
+                    label="Hintergrund-Opazität"
+                    description="Transparenz des Banners."
+                />
+
+                <field
+                    name="icon_position"
+                    type="list"
+                    default="right"
+                    label="Icon-Position"
+                    description="Position des optionalen Einstellungs-Icons."
+                >
+                    <option value="left">Links</option>
+                    <option value="right">Rechts</option>
+                </field>
+
+            </fieldset>
+
+            <!-- ================================================= -->
+            <!-- Banner-Styling                                    -->
+            <!-- ================================================= -->
+            <fieldset name="banner" label="Banner-Styling">
+
+                <field
+                    name="cookie_bgcolor"
+                    type="color"
+                    default="#000000"
+                    label="Hintergrundfarbe"
+                />
+
+                <field
+                    name="cookie_font_color"
+                    type="color"
+                    default="#ffffff"
+                    label="Schriftfarbe"
+                />
+
+                <field
+                    name="cookie_font_size"
+                    type="number"
+                    default="14"
+                    label="Schriftgröße"
+                />
+
+                <field
+                    name="cookie_font_family"
+                    type="text"
+                    default="inherit"
+                    label="Schriftfamilie"
+                />
+
+            </fieldset>
+
+            <!-- ================================================= -->
+            <!-- Überschriften (Captions)                          -->
+            <!-- ================================================= -->
+            <fieldset name="captions" label="Überschriften">
+
+                <!-- Overview -->
+                <field
+                    name="caption_overview_show"
+                    type="radio"
+                    default="1"
+                    label="Überschrift (Übersicht anzeigen)"
+                >
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+
+                <field
+                    name="caption_overview_htmltag"
+                    type="list"
+                    default="h2"
+                    label="HTML-Tag (Übersicht)"
+                >
+                    <option value="h1">H1</option>
+                    <option value="h2">H2</option>
+                    <option value="h3">H3</option>
+                    <option value="h4">H4</option>
+                </field>
+
+                <field
+                    name="caption_overview_font_size"
+                    type="number"
+                    default="18"
+                    label="Schriftgröße (Übersicht)"
+                />
+
+                <field
+                    name="caption_overview_font_family"
+                    type="text"
+                    default="inherit"
+                    label="Schriftfamilie (Übersicht)"
+                />
+
+                <field
+                    name="caption_overview_font_color"
+                    type="color"
+                    default="#ffffff"
+                    label="Schriftfarbe (Übersicht)"
+                />
+
+                <!-- Details -->
+                <field
+                    name="caption_details_show"
+                    type="radio"
+                    default="1"
+                    label="Überschrift (Details anzeigen)"
+                >
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+
+                <field
+                    name="caption_details_htmltag"
+                    type="list"
+                    default="h3"
+                    label="HTML-Tag (Details)"
+                >
+                    <option value="h2">H2</option>
+                    <option value="h3">H3</option>
+                    <option value="h4">H4</option>
+                </field>
+
+                <field
+                    name="caption_details_font_size"
+                    type="number"
+                    default="16"
+                    label="Schriftgröße (Details)"
+                />
+
+                <field
+                    name="caption_details_font_family"
+                    type="text"
+                    default="inherit"
+                    label="Schriftfamilie (Details)"
+                />
+
+                <field
+                    name="caption_details_font_color"
+                    type="color"
+                    default="#ffffff"
+                    label="Schriftfarbe (Details)"
+                />
+
+            </fieldset>
+
+            <!-- ================================================= -->
+            <!-- Buttons                                            -->
+            <!-- ================================================= -->
+            <fieldset name="buttons" label="Buttons">
+
+                <!-- Accept -->
+                <field name="button_accept_show" type="radio" default="1" label="Akzeptieren anzeigen">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+
+                <field name="button_accept_behavior" type="list" default="0" label="Verhalten (Akzeptieren)">
+                    <option value="0">Nur notwendige + Standard</option>
+                    <option value="1">Alle akzeptieren</option>
+                </field>
+
+                <field name="button_accept_bgcolor" type="color" default="#28a745" label="Farbe (Akzeptieren)" />
+                <field name="button_accept_bordercolor" type="color" default="#28a745" label="Rahmenfarbe (Akzeptieren)" />
+                <field name="button_accept_font_color" type="color" default="#ffffff" label="Schriftfarbe (Akzeptieren)" />
+                <field name="button_accept_font_size" type="number" default="14" label="Schriftgröße (Akzeptieren)" />
+                <field name="button_accept_font_family" type="text" default="inherit" label="Schriftfamilie (Akzeptieren)" />
+                <field name="button_accept_class" type="text" default="" label="CSS-Klasse (Akzeptieren)" />
+
+                <!-- Settings -->
+                <field name="button_settings_show" type="radio" default="1" label="Einstellungen anzeigen">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+
+                <field name="button_settings_bgcolor" type="color" default="#007bff" label="Farbe (Einstellungen)" />
+                <field name="button_settings_bordercolor" type="color" default="#007bff" label="Rahmenfarbe (Einstellungen)" />
+                <field name="button_settings_font_color" type="color" default="#ffffff" label="Schriftfarbe (Einstellungen)" />
+                <field name="button_settings_font_size" type="number" default="14" label="Schriftgröße (Einstellungen)" />
+                <field name="button_settings_font_family" type="text" default="inherit" label="Schriftfamilie (Einstellungen)" />
+                <field name="button_settings_class" type="text" default="" label="CSS-Klasse (Einstellungen)" />
+
+                <!-- More Info -->
+                <field name="button_more_info_show" type="radio" default="1" label="Mehr Info anzeigen">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+
+                <field name="button_more_info_url" type="url" default="" label="URL (Mehr Info)" />
+                <field name="button_more_info_target" type="list" default="_blank" label="Ziel (Mehr Info)">
+                    <option value="_blank">Neues Fenster</option>
+                    <option value="_self">Gleiches Fenster</option>
+                </field>
+
+                <field name="button_more_info_bgcolor" type="color" default="#ffc107" label="Farbe (Mehr Info)" />
+                <field name="button_more_info_bordercolor" type="color" default="#ffc107" label="Rahmenfarbe (Mehr Info)" />
+                <field name="button_more_info_font_color" type="color" default="#000000" label="Schriftfarbe (Mehr Info)" />
+                <field name="button_more_info_font_size" type="number" default="14" label="Schriftgröße (Mehr Info)" />
+                <field name="button_more_info_font_family" type="text" default="inherit" label="Schriftfamilie (Mehr Info)" />
+                <field name="button_more_info_class" type="text" default="" label="CSS-Klasse (Mehr Info)" />
+
+                <!-- Save -->
+                <field name="button_save_show" type="radio" default="1" label="Speichern anzeigen">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+
+                <field name="button_save_bgcolor" type="color" default="#28a745" label="Farbe (Speichern)" />
+                <field name="button_save_bordercolor" type="color" default="#28a745" label="Rahmenfarbe (Speichern)" />
+                <field name="button_save_font_color" type="color" default="#ffffff" label="Schriftfarbe (Speichern)" />
+                <field name="button_save_font_size" type="number" default="14" label="Schriftgröße (Speichern)" />
+                <field name="button_save_font_family" type="text" default="inherit" label="Schriftfamilie (Speichern)" />
+                <field name="button_save_class" type="text" default="" label="CSS-Klasse (Speichern)" />
+
+                <!-- Close -->
+                <field name="button_close_show" type="radio" default="1" label="Schließen anzeigen">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+
+                <field name="button_close_font_color" type="color" default="#ffffff" label="Schriftfarbe (Schließen)" />
+                <field name="button_close_class" type="text" default="" label="CSS-Klasse (Schließen)" />
+
+            </fieldset>
+
+            <!-- ================================================= -->
+            <!-- Kategorien                                         -->
+            <!-- ================================================= -->
+            <fieldset name="categories" label="Kategorien">
+
+                <!-- Essential -->
+                <field name="category_essential_show" type="radio" default="1" label="Notwendig anzeigen">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+                <field name="category_essential_required" type="hidden" default="1" />
+                <field name="category_essential_default" type="hidden" default="1" />
+                <field name="category_essential_scripts" type="textarea" label="Skripte (Notwendig)" />
+
+                <!-- Preferences -->
+                <field name="category_preferences_show" type="radio" default="1" label="Präferenzen anzeigen">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+                <field name="category_preferences_required" type="radio" default="0" label="Erforderlich (Präferenzen)">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+                <field name="category_preferences_default" type="radio" default="0" label="Standard aktiviert (Präferenzen)">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+                <field name="category_preferences_scripts" type="textarea" label="Skripte (Präferenzen)" />
+
+                <!-- Statistics -->
+                <field name="category_statistics_show" type="radio" default="1" label="Statistiken anzeigen">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+                <field name="category_statistics_required" type="radio" default="0" label="Erforderlich (Statistiken)">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+                <field name="category_statistics_default" type="radio" default="0" label="Standard aktiviert (Statistiken)">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+                <field name="category_statistics_scripts" type="textarea" label="Skripte (Statistiken)" />
+
+                <!-- Marketing -->
+                <field name="category_marketing_show" type="radio" default="1" label="Marketing anzeigen">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+                <field name="category_marketing_required" type="radio" default="0" label="Erforderlich (Marketing)">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+                <field name="category_marketing_default" type="radio" default="0" label="Standard aktiviert (Marketing)">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+                <field name="category_marketing_scripts" type="textarea" label="Skripte (Marketing)" />
+
+                <!-- Media -->
+                <field name="category_media_show" type="radio" default="1" label="Externe Medien anzeigen">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+                <field name="category_media_required" type="radio" default="0" label="Erforderlich (Externe Medien)">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+                <field name="category_media_default" type="radio" default="0" label="Standard aktiviert (Externe Medien)">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+                <field name="category_media_scripts" type="textarea" label="Skripte (Externe Medien)" />
+
+            </fieldset>
+
+            <!-- ================================================= -->
+            <!-- Links                                              -->
+            <!-- ================================================= -->
+            <fieldset name="links" label="Links">
+
+                <field name="link_privacy_show" type="radio" default="1" label="Datenschutzerklärung anzeigen">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+                <field name="link_privacy_url" type="url" default="" label="URL (Datenschutzerklärung)" />
+                <field name="link_privacy_target" type="list" default="_blank" label="Ziel (Datenschutzerklärung)">
+                    <option value="_blank">Neues Fenster</option>
+                    <option value="_self">Gleiches Fenster</option>
+                </field>
+
+                <field name="link_impressum_show" type="radio" default="1" label="Impressum anzeigen">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+                <field name="link_impressum_url" type="url" default="" label="URL (Impressum)" />
+                <field name="link_impressum_target" type="list" default="_blank" label="Ziel (Impressum)">
+                    <option value="_blank">Neues Fenster</option>
+                    <option value="_self">Gleiches Fenster</option>
+                </field>
+
+                <field name="link_aboutcookies_show" type="radio" default="1" label="Über Cookies anzeigen">
+                    <option value="1">Ja</option>
+                    <option value="0">Nein</option>
+                </field>
+                <field name="link_aboutcookies_url" type="url" default="" label="URL (Über Cookies)" />
+                <field name="link_aboutcookies_target" type="list" default="_blank" label="Ziel (Über Cookies)">
+                    <option value="_blank">Neues Fenster</option>
+                    <option value="_self">Gleiches Fenster</option>
+                </field>
+
+            </fieldset>
+
+        </fields>
+    </config>
+
+</extension>

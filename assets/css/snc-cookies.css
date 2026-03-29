@@ -1,0 +1,280 @@
+/**
+ * SNC Cookies
+ * @package     Joomla.Module
+ * @subpackage  mod_snc_cookies
+ * @author      Steven Naschold Computerservice
+ * @license     GNU/GPLv3
+ */
+
+/* ---------------------------------------------------------
+   OVERLAY (dunkler Hintergrund)
+--------------------------------------------------------- */
+.snc-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9998;
+    display: none;
+}
+
+.snc-overlay.active {
+    display: block;
+}
+
+/* ---------------------------------------------------------
+   POPUP-CONTAINER (zentriertes Popup)
+--------------------------------------------------------- */
+.snc-cookies-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    max-width: 480px;
+    width: 90%;
+    background-color: rgba(0, 0, 0, 0.92);
+    color: #ffffff;
+    border-radius: 6px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+    display: none;
+}
+
+.snc-cookies-popup.active {
+    display: block;
+}
+
+/* ---------------------------------------------------------
+   Wrapper & Box
+--------------------------------------------------------- */
+.snc-cookies-wrapper {
+    margin: 0 auto;
+    max-width: 960px;
+    padding: 1rem;
+}
+
+.snc-cookies-box,
+.snc-cookies-details {
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* ---------------------------------------------------------
+   Inhalt
+--------------------------------------------------------- */
+.snc-cookies-content {
+    position: relative;
+}
+
+/* Close-Button */
+.snc-cookies-close {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    border: none;
+    background: transparent;
+    color: #ffffff;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+/* Überschriften */
+.snc-cookies-caption {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.snc-cookies-message {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+/* ---------------------------------------------------------
+   Buttons
+--------------------------------------------------------- */
+.snc-cookies-actions,
+.snc-cookies-save {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.snc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+/* Standardfarben */
+.snc-btn-accept {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #ffffff;
+}
+
+.snc-btn-decline {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #ffffff;
+}
+
+.snc-btn-settings {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #ffffff;
+}
+
+.snc-btn-more {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #000000;
+}
+
+.snc-btn-save {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #ffffff;
+}
+
+/* ---------------------------------------------------------
+   Links
+--------------------------------------------------------- */
+.snc-cookies-links {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+}
+
+.snc-link {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* ---------------------------------------------------------
+   Details-Bereich (Settings)
+--------------------------------------------------------- */
+.snc-cookies-details {
+    margin-top: 0.75rem;
+}
+
+.snc-hidden {
+    display: none;
+}
+
+/* Kategorien */
+.snc-cookies-categories {
+    margin-top: 0.5rem;
+}
+
+.snc-cookie-category {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.snc-cookie-category-info {
+    max-width: 75%;
+}
+
+.snc-cookie-category-info strong {
+    font-size: 0.95rem;
+}
+
+.snc-cookie-category-info p {
+    font-size: 0.8rem;
+    margin: 0.25rem 0 0;
+}
+
+/* ---------------------------------------------------------
+   SLIDER / TOGGLE SWITCH
+--------------------------------------------------------- */
+.snc-switch {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 24px;
+}
+
+.snc-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.snc-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #555;
+    transition: .3s;
+    border-radius: 24px;
+}
+
+.snc-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #fff;
+    transition: .3s;
+    border-radius: 50%;
+}
+
+.snc-switch input:checked + .snc-slider {
+    background-color: #28a745;
+}
+
+.snc-switch input:checked + .snc-slider:before {
+    transform: translateX(22px);
+}
+
+/* ---------------------------------------------------------
+   Responsive
+--------------------------------------------------------- */
+@media (max-width: 576px) {
+    .snc-cookies-wrapper {
+        max-width: 100%;
+        padding: 0.75rem;
+    }
+
+    .snc-cookies-box,
+    .snc-cookies-details {
+        padding: 0.75rem 0.85rem;
+    }
+
+    .snc-cookies-actions,
+    .snc-cookies-save {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .snc-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
